@@ -1,0 +1,7 @@
+{
+  "name": "CulinaryLand",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
