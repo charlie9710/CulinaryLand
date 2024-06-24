@@ -13,7 +13,10 @@ import { Router } from '@angular/router';
 export class SearchRecipesComponent  implements OnInit {
   user: string = '';
   userId: number | null = null;
-  constructor(private router: Router,private UserService: UserService, private UserDBservice: UsersdbService) {}
+  constructor(private router: Router,
+    private UserService: UserService, 
+    private UserDBservice: UsersdbService,
+  ) {}
 
   recipes: Recipes[] = [];
   searchQuery: string = '';

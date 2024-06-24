@@ -8,6 +8,7 @@ export class UserService {
 
 
   private readonly USER_KEY = 'currentUser';
+  private readonly SEARCH_KEY = 'currentSearch';
 
   constructor() { }
 
@@ -27,6 +28,20 @@ export class UserService {
 
   isLoggedIn(): boolean {
     return this.getUser() !== null;
+  }
+
+  setSearchData( instructions: string, image: string, title: string, ingredients: any[]): void {
+    const searchData = {  instructions, image, title, ingredients };
+    localStorage.setItem(this.SEARCH_KEY, JSON.stringify(searchData));
+  }
+
+  getSearchData(): { instructions: string, image: string, title: string, ingredients: any[] } | null {
+    const searchData = localStorage.getItem(this.SEARCH_KEY);
+    return searchData ? JSON.parse(searchData) : null;
+  }
+
+  clearSearchData(): void {
+    localStorage.removeItem(this.SEARCH_KEY);
   }
 
 }

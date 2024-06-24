@@ -20,7 +20,7 @@
     <div style="display: flex; justify-content: center;">
       <ion-avatar>
         <img src="../../../assets/icon/user.png" alt="Imagen de perfil"  *ngIf="!photo">
-        <img [src]="photo"   *ngIf="photo" width="100%">
+        <img [src]="photo" *ngIf="photo" alt="Imagen de perfil" width="100%">
       </ion-avatar>
       <ion-button expand="block" (click)="takePicture()">Take Picture</ion-button>
     </div>
@@ -63,7 +63,7 @@
               <ion-alert
                 trigger="present-alert"
                 header="{{user}}"
-                message="Datos guardados: {{nombre}} {{apellido}}"
+                message="{{mensaje}} {{nombre}} {{apellido}}"
                 [buttons]="alertButtons">
               </ion-alert>
             </ion-col>

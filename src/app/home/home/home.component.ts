@@ -56,7 +56,7 @@ export class HomeComponent  implements OnInit {
         this.showAlert2();
       }
     } catch (error) {
-      console.error('Error during authentication', error);
+      console.error('Error urante autenticación', error);
     }
   }
   ngOnInit() {

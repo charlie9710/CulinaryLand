@@ -18,6 +18,7 @@ export class AppComponent {
   }
 
   Logout(){
+    this.userService.clearSearchData();
     this.userService.clearUser();
     this.auth.authenticated = false;
     this.router.navigate(['/home']); 

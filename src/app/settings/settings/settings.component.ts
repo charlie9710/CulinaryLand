@@ -1,11 +1,13 @@
 import { Component, OnInit,AfterViewInit,ElementRef, ViewChild  } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute,Router,NavigationEnd } from '@angular/router';
 import { Animation, AnimationController,IonInput, IonSelect } from '@ionic/angular';
 import { UsersdbService } from 'src/app/services/usersdb.service';
 
 import { Camera,CameraResultType, CameraSource  } from '@capacitor/camera';
 import { DomSanitizer,SafeResourceUrl } from '@angular/platform-browser';
+
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -14,6 +16,8 @@ import { DomSanitizer,SafeResourceUrl } from '@angular/platform-browser';
 export class SettingsComponent implements OnInit, AfterViewInit {
 
   public photo: SafeResourceUrl | undefined;
+
+  mensaje: string = '';
 
 
  
@@ -47,7 +51,15 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     private UserService: UserService, 
     private userService: UsersdbService,
     private sanitizer: DomSanitizer
-  ) { }
+  ) { 
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.limpiarDatos();
+      this.loadUserData();
+      this.updateUser(this.user);
+    });
+  }
 
   ngOnInit() {
     this.loadUserData();
@@ -55,10 +67,13 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   loadUserData() {
-    this.user = this.UserService.getUser()?.user ?? '';
     const userData = this.UserService.getUser();
-    if (userData && userData.image) {
-      this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(userData.image);
+    if (userData) {
+      this.user = userData.user;
+      if (userData.image) {
+        this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(userData.image);
+        console.log('Foto cargada:', this.photo);
+      }
     }
   }
   async takePicture() {
@@ -70,13 +85,9 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         source: CameraSource.Camera
       });
 
-      // Use webPath to display the new image instead of base64 since it's already loaded into memory
-      //  this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(capturedPhoto.webPath!);
-      // Si deseas mostrar la imagen inmediatamente, puedes establecerla en el template
-      // <img [src]="image" *ngIf="image">
-
       this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(capturedPhoto.webPath!);
-      this.UserService.setUser(this.user, this.photo ? this.photo.toString() : '');
+      this.UserService.setUser(this.user, capturedPhoto.webPath!);
+      console.log('Foto tomada:', capturedPhoto.webPath);
 
     } catch (error) {
       console.error('Error al tomar la foto', error);
@@ -101,6 +112,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   updateProfile() {
     if (this.nombreField && this.apellidoField && this.nivelEducacionField && this.fechaNacimientoField) {
       const fechaNacimientoFormatted = this.formatDate(this.fechaNacimientoField);
+      this.mensaje = 'Datos guardados:'
       const updatedData = {
         name: this.nombreField.nativeElement.value,
         last_name: this.apellidoField.nativeElement.value,
@@ -108,7 +120,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         birthdate: fechaNacimientoFormatted
       };
 
-      console.log('Datos a actualizar:', updatedData);
 
       this.userService.updateUser(this.user, updatedData).subscribe(
         response => {
@@ -121,6 +132,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       );
     } else {
       console.error('Uno o más elementos no están definidos');
+      this.mensaje = 'El formulario no esta lleno '
     }
   }
   private formatDate(date: Date): string {
