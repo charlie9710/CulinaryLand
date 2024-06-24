@@ -1,0 +1,35 @@
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Buscador de recetas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding" style="text-align: center;">
+    <ion-item>
+      <ion-label position="floating">Buscar</ion-label>
+      <ion-input [(ngModel)]="searchQuery"></ion-input>
+    </ion-item>
+    <ion-button expand="full" (click)="onSearch()">Encuentra tu receta</ion-button>
+    <ion-list>
+      <ion-item *ngFor="let recipe of recipes; trackBy: trackRecipeById">
+        <ion-card>
+          <img [src]="recipe.image" alt="" >
+          <ion-card-header>
+            <ion-card-title>{{recipe.title}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content style="text-align: center;">
+            <div style="display: flex;">
+              <ion-button (click)="goToDetailPage(recipe.id)">Ver detalles</ion-button>
+              <ion-button (click)="goToSimilarRecipePage(recipe.id,recipe.title)">Ver recetas similares</ion-button>
+              <ion-button (click)="addToFavorites(recipe)">Añadir a favoritos</ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>   
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</div>

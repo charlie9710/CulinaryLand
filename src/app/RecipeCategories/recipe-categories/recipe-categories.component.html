@@ -1,0 +1,52 @@
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Recetas similares</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding" style="text-align: center;">
+    <br>
+    <ion-item>
+      <ion-label position="floating">Buscar</ion-label>
+      <ion-input [(ngModel)]="searchQuery"></ion-input>
+    </ion-item>
+    <ion-button expand="full" (click)="onSearch()">Encuentra tu receta</ion-button>
+    <ion-list style="text-align: center;">
+      <h2>Toca la imagen para actualizar!</h2>
+      <ion-item *ngFor="let recipe of recipes | slice:0:1; trackBy: trackRecipeById">
+        <ion-card>
+          <img [src]="recipe.image" alt="" (click)="searchRecipesEqual(recipe.id,recipe.title)">
+          <ion-card-header>
+            <ion-card-title>{{recipe.title}}</ion-card-title>
+          </ion-card-header>
+        </ion-card>   
+      </ion-item>
+    </ion-list>
+    <div>
+      <h3 style="text-align: center;">Recetas similares a {{recipeTitle}}</h3>
+    </div>
+
+    <ion-list>
+      <ion-item *ngFor="let receta of similarRecipes;">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <ion-label>Título:</ion-label>
+            </ion-col>
+            <ion-col size="9">{{receta.title}}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3">
+              <ion-label>URL:</ion-label>
+            </ion-col>
+            <ion-col size="9">{{receta.sourceUrl}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</div>

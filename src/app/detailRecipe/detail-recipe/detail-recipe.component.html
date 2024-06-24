@@ -1,0 +1,56 @@
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Detalle Receta</ion-title>
+    </ion-toolbar>
+  </ion-header>
+<ion-content class="ion-padding" style="text-align: center;">
+    <h2>Ingresa para buscar una receta</h2>
+    <ion-item>
+      <ion-label position="floating">Buscar</ion-label>
+      <ion-input [(ngModel)]="searchQueryNew"></ion-input>
+    </ion-item>
+    <ion-button expand="full" (click)="onSearch()">Encuentra tu receta</ion-button>
+    <ion-list style="text-align: center;">
+      <br>
+      <h2>Toca la imagen para actualizar!</h2>
+      <ion-item *ngFor="let recipe of recipes | slice:0:1; trackBy: trackRecipeById">
+        <ion-card>
+          <img [src]="recipe.image" alt="" (click)="searchRecipesEqual(recipe.id,recipe.title)">
+          <ion-card-header>
+            <ion-card-title>{{recipe.title}}</ion-card-title>
+          </ion-card-header>
+        </ion-card>   
+      </ion-item>
+    </ion-list>
+    <ion-card>
+      <img [src]="searchImage" alt="" style="padding: 30px;">
+      <ion-card-header>
+        <ion-card-title>{{searchTitle}}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <div>
+      <h2 style="text-align: center;">Ingredientes</h2>
+    </div>
+    <ion-list>
+      <ion-item *ngFor="let ingrediente of ingredientes; trackBy: trackIngredientById">
+        <ion-label>
+          <h2>{{ingrediente.name}}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <br>
+    <div>
+      <h2 style="text-align: center;">Instrucciones</h2>
+    </div>
+    <div style="margin: 50px;">
+      <h3 style="font-size: 20px;">{{ excludeWords(searchQuery) }}</h3>
+    </div>
+  </ion-content>
+</div>
+
+

@@ -1,0 +1,89 @@
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Settings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding" style="text-align: center;">
+    <div>
+      <h1>CulinaryLand</h1>
+    </div>
+    <br>
+    <div>
+      <h3> Estos son tus datos {{user}}</h3>
+    </div>
+    <br>
+    <div style="display: flex; justify-content: center;">
+      <ion-avatar>
+        <img src="../../../assets/icon/user.png" alt="Imagen de perfil"  *ngIf="!photo">
+        <img [src]="photo"   *ngIf="photo" width="100%">
+      </ion-avatar>
+      <ion-button expand="block" (click)="takePicture()">Take Picture</ion-button>
+    </div>
+    <br>
+    <p style="font-size: 20px;">Configura tu perfil</p>
+    <br>
+    <ion-list>
+      <ion-item>
+        <ion-input #nombreField label="Nombre" placeholder="Enter text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input #apellidoField label="Apellido" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-select [(ngModel)]="nivelEducacionField" label="Nivel educación" placeholder="Seleccione nivel">
+          <ion-select-option value="basica">Básica</ion-select-option>
+          <ion-select-option value="secundaria">Secundaria</ion-select-option>
+          <ion-select-option value="superior">Superior</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <h4>Fecha Nacimiento</h4>
+        <mat-form-field class="custom-form-field" appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [(ngModel)]="fechaNacimientoField" [matDatepicker]="picker">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ion-item>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button size="default" (click)="limpiarDatos(); playAnimations()">Limpiar</ion-button>
+            </ion-col>
+            <ion-col class="ion-text-end">
+              <ion-button size="default" id="present-alert" class="ion-margin-start" (click)="updateProfile()">
+                Guardar
+              </ion-button>
+              <ion-alert
+                trigger="present-alert"
+                header="{{user}}"
+                message="Datos guardados: {{nombre}} {{apellido}}"
+                [buttons]="alertButtons">
+              </ion-alert>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <br>
+      <br>
+      <ion-item>
+        <h3>Nombre: {{nombre}}</h3>
+      </ion-item>
+      <ion-item>
+        <h3>Apellido: {{apellido}}</h3>
+      </ion-item>
+      <ion-item>
+        <h3>Educacion: {{nivelEducacion}}</h3>
+      </ion-item>
+      <ion-item>
+        <h3>Fecha de nacimiento: {{fechaNacimiento | date}}</h3>
+      </ion-item>
+    </ion-list> 
+  </ion-content>
+</div>

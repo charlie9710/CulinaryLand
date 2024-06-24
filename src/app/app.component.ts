@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthGuardService } from './services/auth-guard.service';
+import { Router } from '@angular/router'; 
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,18 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(private auth: AuthGuardService,private router: Router, private userService: UserService) {
+    if (this.userService.isLoggedIn()) {
+      this.router.navigate(['/main']);
+    } else {
+      this.router.navigate(['/home']);
+    }
+  }
+
+  Logout(){
+    this.userService.clearUser();
+    this.auth.authenticated = false;
+    this.router.navigate(['/home']); 
+  }
+
 }

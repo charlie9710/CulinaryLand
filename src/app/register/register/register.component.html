@@ -1,0 +1,66 @@
+<div class="ion-page" id="main-content">
+  <ion-content class="ion-padding">
+    <br>
+    <br>
+    <div style="text-align: center;">
+      <h1>CulinaryLand</h1>
+    </div>
+    <br>
+    <br>
+    <div style="text-align: center;">
+      <h3>Recetas para tu día a día!</h3>
+    </div>
+    <br>
+    <br>
+    <div style="text-align: center;">
+      <h3>Te damos la bienvenida!</h3>
+      <h3>Registrate!</h3>
+    </div>
+    <form (ngSubmit)="CreateUser()">
+      <ion-list>
+        <ion-item>
+          <ion-input label="Username" placeholder="Enter Username" [(ngModel)]="newUser.user" name="user"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Password" placeholder="Enter password" type="password" [(ngModel)]="newUser.password" name="password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Nombre" placeholder="Enter name" type="text" [(ngModel)]="newUser.name" name="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Apellido" placeholder="Enter last name" type="text" [(ngModel)]="newUser.last_name" name="last_name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-select label="Nivel educación" placeholder="Seleccione nivel" [(ngModel)]="newUser.education_level" name="education_level">
+            <ion-select-option value="basica">Básica</ion-select-option>
+            <ion-select-option value="secundaria">Secundaria</ion-select-option>
+            <ion-select-option value="superior">Superior</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <br>
+        <br>
+        <ion-item>
+          <h4>Fecha Nacimiento</h4>
+          <mat-form-field class="custom-form-field" appearance="fill">
+            <input matInput [matDatepicker]="picker" [(ngModel)]="newUser.birthdate" (ngModelChange)="onFechaNacimientoChange($event)" name="birthdate">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </ion-item>
+      </ion-list>
+      <br>
+      <ion-button expand="block" type="submit">
+        Registrarse
+      </ion-button>
+      <ion-alert
+        header="Validaciones incorrectas"
+        message="Ingrese todos los campos, usuario de 3 a 8 dígitos y contraseña de 4 dígitos."
+        [buttons]="alertButtons"
+      ></ion-alert>
+    </form>
+    <br>
+    <ion-button expand="block" (click)="goToMain()">
+      Iniciar Sesión
+    </ion-button>
+  </ion-content>
+</div>

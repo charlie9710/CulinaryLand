@@ -1,0 +1,32 @@
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title><Main></Main></ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <div >
+      <h1>CulinaryLand</h1>
+    </div>
+    <br>
+    <div>
+      <h3> Aquí podrás ver tus recetas favoritas {{user}}!</h3>
+    </div>
+    <ion-list>
+      <ion-item *ngFor="let favorito of favoritos">
+        <ion-card>
+          <img [src]="favorito.imagen_url" alt="">
+          <ion-card-header>
+            <ion-card-title>{{ favorito.descripcion }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button (click)="eliminarFavorito(favorito.id)" color="danger">Eliminar favorito</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</div>

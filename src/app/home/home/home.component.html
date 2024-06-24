@@ -1,0 +1,49 @@
+<div class="ion-page" id="main-content">
+  <div class="ion-page" id="main-content">
+    <ion-content class="ion-padding">
+      <br>
+      <br>
+      <div style="text-align: center;">
+        <h1>CulinaryLand</h1>
+      </div>
+      <br>
+      <br>
+      <div style="text-align: center;">
+        <h3>Recetas para tu día a día!</h3>
+      </div>
+      <br>
+      <br>
+      <div style="text-align: center;">
+        <h3>Te damos la bienvenida!</h3>
+      </div>
+      <br>
+      <form (ngSubmit)="onSubmit()">
+        <ion-list>
+          <ion-item>
+            <ion-input label="User" placeholder="Enter text" [(ngModel)]="usuario" name="usuario"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Password" placeholder="Enter password" type="password" [(ngModel)]="password" name="password"></ion-input>
+          </ion-item>
+        </ion-list>
+        <br>
+        <ion-button expand="block" type="submit" [disabled]="!isValid()">
+          Ingresar
+        </ion-button>
+        <ion-alert
+          header="Validaciones incorrectas"
+          message="Por favor ingrese una contraseña que tenga 4 dígitos y un usuario que tenga de 3 a 8 dígitos."
+          [buttons]="alertButtons"
+        ></ion-alert>
+        <br>
+        <ion-button expand="block" (click)="goToRegister()">
+          Registrarse
+        </ion-button>
+      </form>
+    </ion-content>
+    <ion-footer>
+      <ion-toolbar style="text-align: center;">
+        <h6 style="font-size: 15px; color: #555;">© 2024 CulinaryLand. Todos los derechos reservados</h6>    
+      </ion-toolbar>
+    </ion-footer>
+  </div>
