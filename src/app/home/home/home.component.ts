@@ -10,7 +10,7 @@ import { AuthGuardService } from 'src/app/services/auth-guard.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent  implements OnInit {
+export class HomeComponent  implements OnInit{
 
   usuario: string = '';
   password : string = '';

@@ -6,11 +6,11 @@ export interface Ingredientes{
   name : string;
   id: number;
 }
-type ApiResponse = {
-  extendedIngredients: Ingredientes[],
-  instructions: string,
-  image: string,
-  title: string,
+export interface ApiResponse {
+  extendedIngredients: Ingredientes[];
+  instructions: string;
+  image: string;
+  title: string;
 }
 
 @Injectable({

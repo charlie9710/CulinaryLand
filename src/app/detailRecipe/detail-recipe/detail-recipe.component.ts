@@ -25,7 +25,6 @@ export class DetailRecipeComponent implements OnInit {
   searchQueryNew: string = '';
   recipes: Recipes[] = [];
 
-  // Variables persistencia
   instructions: string = '';
   image: string = '';
   title: string = '';
@@ -39,17 +38,18 @@ export class DetailRecipeComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.loadUserData();
-    this.loadSearchData(); 
-    this.route.queryParams.subscribe(params => {
-      this.recipeId = params['id'];
-      if (this.recipeId) {
+    this.loadSearchData();
+
+    if (this.route && this.route.queryParams) {
+      this.route.queryParams.subscribe(params => {
+        this.recipeId = params['id'] ? +params['id'] : 918033;
         this.searchInformation(this.recipeId);
-      } else {
-        this.searchInformation(918033);
-      }
-    });
+      });
+    } else {
+      console.error('Error: this.route o this.route.queryParams no está definido.');
+    }
   }
 
   async searchRecipes(query: string) {
